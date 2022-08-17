@@ -1,18 +1,23 @@
 package com.vaca.myapplication
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.vaca.myapplication.databinding.ActivityMainBinding
+import com.vaca.myapplication.ui.dashboard.DashboardViewModel
+import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    val model: DashboardViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,5 +36,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        Thread{
+            while (true){
+                sleep(3000);
+                if(model.text.value!=null){
+                    Log.e("gaga",model.text.value!!)
+                }
+
+            }
+        }.start()
     }
 }
